@@ -1,0 +1,35 @@
+# Secrets & Local Environment
+.env
+.env.*
+!.env.example
+
+# Python Virtual Environments & Caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Ryzen AI / Vitis AI Runtime Caches & Logs
+*.xclbin.cache
+vaip_cache/
+cache/
+*.log
+*.tmp
+
+# Binary Artifacts & Heavy Models
+*.onnx
+*.onnx_data
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.gguf
+*.cab
+*.msi
+*.zip
+*.nupkg
+*.deb
