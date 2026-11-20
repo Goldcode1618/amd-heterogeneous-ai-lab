@@ -13,14 +13,15 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
-# Ryzen AI / Vitis AI Runtime Caches & Logs
+# Ryzen AI / Vitis AI Runtime Caches & Temp Logs
 *.xclbin.cache
 vaip_cache/
 cache/
-*.log
 *.tmp
+*.log
+!03_ROCM_CERTIFIED_ASSOCIATE/docker_lab_logs/*.log
 
-# Binary Artifacts & Heavy Models
+# Binary Artifacts & Heavy Models / Installers
 *.onnx
 *.onnx_data
 *.safetensors

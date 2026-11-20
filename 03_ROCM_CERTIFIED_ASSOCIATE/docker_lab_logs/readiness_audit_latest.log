@@ -1,0 +1,23 @@
+ROCm Certified Associate Readiness Audit (UTC: 2026-11-20T16:35:20Z)
+Host: GOLDENRATIO1618
+====================================================================
+
+=== 1. WSL2 Status ===
+  NAME          STATE           VERSION
+* Ubuntu        Running         2
+  kali-linux    Stopped         2
+
+=== 2. WSL2 /dev/accel Check ===
+ls: cannot access '/dev/accel': No such file or directory
+NO_DEV_ACCEL (expected on WSL2)
+6.18.33.2-microsoft-standard-WSL2
+
+=== 3. Docker Desktop / CLI Readiness ===
+WARNING: Docker CLI is NOT installed on Windows PATH or WSL2.
+Action needed for Docker-based ROCm labs:
+  winget install -e --id Docker.DockerDesktop
+  Enable 'Use the WSL 2 based engine' in Docker Desktop Settings -> Resources -> WSL Integration.
+
+=== 4. NVIDIA RTX 3050 Isolation Check ===
+name, driver_version, memory.total [MiB]
+NVIDIA GeForce RTX 3050, 621.24, 6144 MiB

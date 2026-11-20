@@ -1,4 +1,4 @@
-"""Diagnostic verification for AMD Ryzen AI NPU (Hawk Point / Ryzen 5 8600G).
+"""Diagnostic & latency verification for AMD Ryzen AI NPU (Hawk Point / Ryzen 5 8600G).
 
 Run inside the isolated Ryzen AI 1.9.0 virtual environment:
   C:\\Program Files\\RyzenAI\\ryzen-ai-1.9.0\\Scripts\\activate.bat
@@ -8,11 +8,19 @@ Run inside the isolated Ryzen AI 1.9.0 virtual environment:
 from __future__ import annotations
 
 import os
+import statistics
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 os.environ.setdefault("GLOG_minloglevel", "2")
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
+if str(WORKSPACE_ROOT) not in sys.path:
+    sys.path.insert(0, str(WORKSPACE_ROOT))
+
+from scripts.log_experiment import record_experiment  # noqa: E402
 
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
 
@@ -94,6 +102,18 @@ def check_xrt_smi() -> None:
         print(f"WARNING: xrt-smi exited with code {rc}")
 
 
+def percentile_ms(samples_ms: list[float], pct: float) -> float:
+    """Compute linear-interpolated percentile over latency samples."""
+    ordered = sorted(samples_ms)
+    if len(ordered) == 1:
+        return ordered[0]
+    pos = (len(ordered) - 1) * (pct / 100.0)
+    lo = int(pos)
+    hi = min(lo + 1, len(ordered) - 1)
+    frac = pos - lo
+    return ordered[lo] + (ordered[hi] - ordered[lo]) * frac
+
+
 def main() -> int:
     print(f"Python Executable : {sys.executable}")
     print(f"Python Version    : {sys.version.splitlines()[0]}")
@@ -169,7 +189,7 @@ def main() -> int:
             "xclbin": str(xclbin_ref),
         }
     ]
-    print("\n=== [4] Live VitisAIExecutionProvider Inference Test (Hawk Point 'target': 'X1') ===")
+    print("\n=== [4] Live VitisAIExecutionProvider Inference Benchmark (Hawk Point 'target': 'X1') ===")
     print(f"Model            : {test_model}")
     print(f"Provider options : {provider_options}")
 
@@ -185,8 +205,45 @@ def main() -> int:
     input_meta = session.get_inputs()[0]
     shape = [dim if isinstance(dim, int) and dim > 0 else 1 for dim in input_meta.shape]
     dummy_input = np.random.rand(*shape).astype(np.float32)
-    outputs = session.run(None, {input_meta.name: dummy_input})
+
+    warmup_runs = 3
+    bench_runs = 20
+    for _ in range(warmup_runs):
+        _ = session.run(None, {input_meta.name: dummy_input})
+
+    latencies_ms: list[float] = []
+    outputs = None
+    for _ in range(bench_runs):
+        t0 = time.perf_counter()
+        outputs = session.run(None, {input_meta.name: dummy_input})
+        latencies_ms.append((time.perf_counter() - t0) * 1000.0)
+
+    p50_ms = statistics.median(latencies_ms)
+    p95_ms = percentile_ms(latencies_ms, 95.0)
+    mean_ms = statistics.mean(latencies_ms)
+    ips = 1000.0 / mean_ms if mean_ms > 0 else 0.0
+
     print(f"Inference PASSED -> Output shape: {outputs[0].shape}")
+    print(f"Latency (N={bench_runs}) -> mean={mean_ms:.3f} ms | p50={p50_ms:.3f} ms | p95={p95_ms:.3f} ms | {ips:.2f} inf/s")
+
+    entry = record_experiment(
+        track="01_local_ryzen_ai_npu",
+        hardware_tier="Edge_NPU",
+        device_name="AMD Ryzen 5 8600G NPU Phoenix (XDNA 1)",
+        execution_provider="VitisAIExecutionProvider",
+        model_or_workload=test_model.name,
+        precision="INT8/AIE2_4x4",
+        batch_size=1,
+        latency_ms_p50=p50_ms,
+        latency_ms_p95=p95_ms,
+        throughput_val=ips,
+        throughput_unit="inf/s",
+        status="PASS",
+        script_path=__file__,
+        notes=f"target=X1 warmup={warmup_runs} runs={bench_runs} ort={ort.__version__}",
+        extra_metadata={"mean_ms": round(mean_ms, 3), "xclbin": str(xclbin_ref)},
+    )
+    print(f"Logged to 00_RESEARCH_LIBRARY -> experiment_id={entry['experiment_id']}")
     return 0
 
 

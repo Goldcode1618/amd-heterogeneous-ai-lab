@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="394" viewBox="0 0 1040 394">
+<style>
+  .title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+  .subtitle { font: 400 12px 'Segoe UI', Arial, sans-serif; fill: #4B5563; }
+  .label { font: 600 12px 'Segoe UI', Arial, sans-serif; fill: #1F2937; }
+  .sublabel { font: 400 11px 'Segoe UI', Arial, sans-serif; fill: #6B7280; }
+  .val { font: 600 11px 'Consolas', monospace; fill: #111827; }
+  .grid { stroke: #E5E7EB; stroke-width: 1; stroke-dasharray: 4 3; }
+  .axis { stroke: #374151; stroke-width: 1.5; }
+</style>
+<rect width="1040" height="394" fill="#FFFFFF" />
+<text x="28" y="36" class="title">AMD Ecosystem Cross-Tier Latency Benchmark (p50 Median vs p95 Tail)</text>
+<text x="28" y="56" class="subtitle">Log10 Latency Scale (ms) · Source: 00_RESEARCH_LIBRARY/MASTER_BENCHMARK.csv (Host: GOLDENRATIO1618)</text>
+<line x1="310.0" y1="80" x2="310.0" y2="346" class="grid" />
+<text x="310.0" y="366" text-anchor="middle" class="sublabel">1 ms</text>
+<line x1="398.0" y1="80" x2="398.0" y2="346" class="grid" />
+<text x="398.0" y="366" text-anchor="middle" class="sublabel">10 ms</text>
+<line x1="486.0" y1="80" x2="486.0" y2="346" class="grid" />
+<text x="486.0" y="366" text-anchor="middle" class="sublabel">100 ms</text>
+<line x1="574.0" y1="80" x2="574.0" y2="346" class="grid" />
+<text x="574.0" y="366" text-anchor="middle" class="sublabel">1000 ms</text>
+<line x1="662.0" y1="80" x2="662.0" y2="346" class="grid" />
+<text x="662.0" y="366" text-anchor="middle" class="sublabel">10000 ms</text>
+<line x1="750.0" y1="80" x2="750.0" y2="346" class="grid" />
+<text x="750.0" y="366" text-anchor="middle" class="sublabel">100000 ms</text>
+<line x1="310" y1="80" x2="310" y2="346" class="axis" />
+<text x="298" y="107" text-anchor="end" class="label">Edge_NPU · VitisAIExecutionProvider</text>
+<text x="298" y="123" text-anchor="end" class="sublabel">test_model.onnx (INT8/AIE2_4x4)</text>
+<rect x="310" y="96" width="47.9" height="24" rx="3" fill="#ED1C24" fill-opacity="0.28" />
+<rect x="310" y="100" width="43.9" height="16" rx="2" fill="#ED1C24" />
+<text x="365.9" y="112" class="val">p50=3.16ms / p95=3.50ms | 311.768 inf/s</text>
+<text x="298" y="165" text-anchor="end" class="label">Edge_iGPU · DmlExecutionProvider</text>
+<text x="298" y="181" text-anchor="end" class="sublabel">test_model.onnx (FP32/DirectML)</text>
+<rect x="310" y="154" width="83.5" height="24" rx="3" fill="#0071C5" fill-opacity="0.28" />
+<rect x="310" y="158" width="79.8" height="16" rx="2" fill="#0071C5" />
+<text x="401.5" y="170" class="val">p50=8.07ms / p95=8.89ms | 124.311 inf/s</text>
+<text x="298" y="223" text-anchor="end" class="label">Edge_CPU · CPUExecutionProvider</text>
+<text x="298" y="239" text-anchor="end" class="sublabel">test_model.onnx (FP32/AVX512)</text>
+<rect x="310" y="212" width="110.6" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="216" width="99.0" height="16" rx="2" fill="#5A6577" />
+<text x="428.6" y="228" class="val">p50=13.35ms / p95=18.05ms | 70.779 inf/s</text>
+<text x="298" y="281" text-anchor="end" class="label">Cloud_API · OpenAI_Compatible_API</text>
+<text x="298" y="297" text-anchor="end" class="sublabel">Gemma-4-31B-IT (API_Hosted)</text>
+<rect x="310" y="270" width="398.5" height="24" rx="3" fill="#00897B" fill-opacity="0.28" />
+<rect x="310" y="274" width="398.5" height="16" rx="2" fill="#00897B" />
+<text x="716.5" y="286" class="val">p50=33804.43ms / p95=33804.43ms | 2.337 tokens/s</text>
+</svg>
