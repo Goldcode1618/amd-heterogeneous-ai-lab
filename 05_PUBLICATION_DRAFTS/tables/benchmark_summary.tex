@@ -12,6 +12,15 @@ Edge\_iGPU & AMD Radeon 760M (RDNA 3 iGPU) & DmlExecutionProvider & test\_model.
 Cloud\_API & AMD Token Lab Inference Endpoint & OpenAI\_Compatible\_API & Gemma-4-31B-IT & API\_Hosted & 33804.427 & 33804.427 & 2.337 tokens/s \\
 Edge\_CPU & AMD Ryzen 5 8600G (Zen 4 CPU) & CPUExecutionProvider & test\_model.onnx & FP32/AVX512 & 13.349 & 18.052 & 70.779 inf/s \\
 Edge\_NPU & AMD Ryzen 5 8600G NPU Phoenix (XDNA 1) & VitisAIExecutionProvider & test\_model.onnx & INT8/AIE2\_4x4 & 3.158 & 3.499 & 311.768 inf/s \\
+Edge\_CPU & NVIDIA GeForce RTX 3050 & PyTorch\_CUDA\_Backend & GEMM\_SiLU\_512x512 & FP32 & 0.168 & 0.206 & 1544.140 GFLOP/s \\
+Edge\_CPU & AMD Ryzen 5 8600G (Zen 4 CPU) & NumPy\_QDQ\_INT8\_Reference & QDQ\_MatMul\_1024x1024 & INT8\_QDQ & 8.123 & 12.393 & 121.740 calibrations/s \\
+Edge\_NPU & AMD Ryzen 5 8600G NPU Phoenix (XDNA 1) & VitisAIExecutionProvider\_Diagnostic & XDNA1\_Operator\_Partition\_Audit & INT8/AIE2\_4x4 & -- & -- & 77.780 \%\_offload \\
+Edge\_CPU & AMD Ryzen 5 8600G (Zen 4 Host) & HIPIFY\_Static\_Analyzer & CUDA\_to\_HIP\_SAXPY\_Port & Source\_AST & 1.557 & 1.557 & 12.000 conversions \\
+Cloud\_MI300X & AMD Instinct MI300X 192GB HBM3 (Analytical) & vLLM\_PagedAttention\_Model & Llama-3.1-70B\_FP8 & FP8 & 0.029 & 0.029 & 75.100 tok/s\_roof \\
+Edge\_CPU & AMD Ryzen 5 8600G (Zen 4 Host) & Triton\_RMSNorm\_Reference & FusedRMSNorm\_1024x4096 & FP32 & 8.775 & 10.785 & 3.830 GB/s \\
+Cloud\_MI300X & AMD Instinct MI300X (CDNA 3 FP8 Spec + Host Sim) & FP8\_E4M3\_Scaled\_Quantizer & Transformer\_Outlier\_Tensor\_262144 & FP8\_E4M3 & 21.076 & 21.076 & 2614.900 TFLOPS\_peak \\
+Edge\_CPU & AMD Ryzen 5 8600G (Zen 4 Local Index) & Hybrid\_Edge\_RAG\_Router & VectorRetrieval\_128d\_Cosine & FP32 & 2.299 & 2.299 & 434.970 queries/s \\
+Cloud\_MI300X & AMD Instinct MI300X (Roofline Model) & rocprofv2\_Roofline\_Engine & GEMM\_8192x8192\_BF16 & BF16 & 0.019 & 0.019 & 1307.400 TFLOPS\_ceil \\
 \bottomrule
 \end{tabular}
 \end{table*}

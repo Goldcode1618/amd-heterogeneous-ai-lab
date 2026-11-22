@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="394" viewBox="0 0 1040 394">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="858" viewBox="0 0 1040 858">
 <style>
   .title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #111827; }
   .subtitle { font: 400 12px 'Segoe UI', Arial, sans-serif; fill: #4B5563; }
@@ -8,40 +8,84 @@
   .grid { stroke: #E5E7EB; stroke-width: 1; stroke-dasharray: 4 3; }
   .axis { stroke: #374151; stroke-width: 1.5; }
 </style>
-<rect width="1040" height="394" fill="#FFFFFF" />
+<rect width="1040" height="858" fill="#FFFFFF" />
 <text x="28" y="36" class="title">AMD Ecosystem Cross-Tier Latency Benchmark (p50 Median vs p95 Tail)</text>
 <text x="28" y="56" class="subtitle">Log10 Latency Scale (ms) · Source: 00_RESEARCH_LIBRARY/MASTER_BENCHMARK.csv (Host: GOLDENRATIO1618)</text>
-<line x1="310.0" y1="80" x2="310.0" y2="346" class="grid" />
-<text x="310.0" y="366" text-anchor="middle" class="sublabel">1 ms</text>
-<line x1="398.0" y1="80" x2="398.0" y2="346" class="grid" />
-<text x="398.0" y="366" text-anchor="middle" class="sublabel">10 ms</text>
-<line x1="486.0" y1="80" x2="486.0" y2="346" class="grid" />
-<text x="486.0" y="366" text-anchor="middle" class="sublabel">100 ms</text>
-<line x1="574.0" y1="80" x2="574.0" y2="346" class="grid" />
-<text x="574.0" y="366" text-anchor="middle" class="sublabel">1000 ms</text>
-<line x1="662.0" y1="80" x2="662.0" y2="346" class="grid" />
-<text x="662.0" y="366" text-anchor="middle" class="sublabel">10000 ms</text>
-<line x1="750.0" y1="80" x2="750.0" y2="346" class="grid" />
-<text x="750.0" y="366" text-anchor="middle" class="sublabel">100000 ms</text>
-<line x1="310" y1="80" x2="310" y2="346" class="axis" />
-<text x="298" y="107" text-anchor="end" class="label">Edge_NPU · VitisAIExecutionProvider</text>
-<text x="298" y="123" text-anchor="end" class="sublabel">test_model.onnx (INT8/AIE2_4x4)</text>
-<rect x="310" y="96" width="47.9" height="24" rx="3" fill="#ED1C24" fill-opacity="0.28" />
-<rect x="310" y="100" width="43.9" height="16" rx="2" fill="#ED1C24" />
-<text x="365.9" y="112" class="val">p50=3.16ms / p95=3.50ms | 311.768 inf/s</text>
-<text x="298" y="165" text-anchor="end" class="label">Edge_iGPU · DmlExecutionProvider</text>
-<text x="298" y="181" text-anchor="end" class="sublabel">test_model.onnx (FP32/DirectML)</text>
-<rect x="310" y="154" width="83.5" height="24" rx="3" fill="#0071C5" fill-opacity="0.28" />
-<rect x="310" y="158" width="79.8" height="16" rx="2" fill="#0071C5" />
-<text x="401.5" y="170" class="val">p50=8.07ms / p95=8.89ms | 124.311 inf/s</text>
-<text x="298" y="223" text-anchor="end" class="label">Edge_CPU · CPUExecutionProvider</text>
-<text x="298" y="239" text-anchor="end" class="sublabel">test_model.onnx (FP32/AVX512)</text>
-<rect x="310" y="212" width="110.6" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
-<rect x="310" y="216" width="99.0" height="16" rx="2" fill="#5A6577" />
-<text x="428.6" y="228" class="val">p50=13.35ms / p95=18.05ms | 70.779 inf/s</text>
-<text x="298" y="281" text-anchor="end" class="label">Cloud_API · OpenAI_Compatible_API</text>
-<text x="298" y="297" text-anchor="end" class="sublabel">Gemma-4-31B-IT (API_Hosted)</text>
-<rect x="310" y="270" width="398.5" height="24" rx="3" fill="#00897B" fill-opacity="0.28" />
-<rect x="310" y="274" width="398.5" height="16" rx="2" fill="#00897B" />
-<text x="716.5" y="286" class="val">p50=33804.43ms / p95=33804.43ms | 2.337 tokens/s</text>
+<line x1="310.0" y1="80" x2="310.0" y2="810" class="grid" />
+<text x="310.0" y="830" text-anchor="middle" class="sublabel">0.01 ms</text>
+<line x1="372.9" y1="80" x2="372.9" y2="810" class="grid" />
+<text x="372.9" y="830" text-anchor="middle" class="sublabel">0.10 ms</text>
+<line x1="435.7" y1="80" x2="435.7" y2="810" class="grid" />
+<text x="435.7" y="830" text-anchor="middle" class="sublabel">1 ms</text>
+<line x1="498.6" y1="80" x2="498.6" y2="810" class="grid" />
+<text x="498.6" y="830" text-anchor="middle" class="sublabel">10 ms</text>
+<line x1="561.4" y1="80" x2="561.4" y2="810" class="grid" />
+<text x="561.4" y="830" text-anchor="middle" class="sublabel">100 ms</text>
+<line x1="624.3" y1="80" x2="624.3" y2="810" class="grid" />
+<text x="624.3" y="830" text-anchor="middle" class="sublabel">1000 ms</text>
+<line x1="687.1" y1="80" x2="687.1" y2="810" class="grid" />
+<text x="687.1" y="830" text-anchor="middle" class="sublabel">10000 ms</text>
+<line x1="750.0" y1="80" x2="750.0" y2="810" class="grid" />
+<text x="750.0" y="830" text-anchor="middle" class="sublabel">100000 ms</text>
+<line x1="310" y1="80" x2="310" y2="810" class="axis" />
+<text x="298" y="107" text-anchor="end" class="label">Cloud_MI300X · rocprofv2_Roofline_Engine</text>
+<text x="298" y="123" text-anchor="end" class="sublabel">GEMM_8192x8192_BF16 (BF16)</text>
+<rect x="310" y="96" width="17.5" height="24" rx="3" fill="#6A1B9A" fill-opacity="0.28" />
+<rect x="310" y="100" width="17.5" height="16" rx="2" fill="#6A1B9A" />
+<text x="335.5" y="112" class="val">p50=0.02ms / p95=0.02ms | 1307.400 TFLOPS_ceil</text>
+<text x="298" y="165" text-anchor="end" class="label">Cloud_MI300X · vLLM_PagedAttention_Model</text>
+<text x="298" y="181" text-anchor="end" class="sublabel">Llama-3.1-70B_FP8 (FP8)</text>
+<rect x="310" y="154" width="29.1" height="24" rx="3" fill="#6A1B9A" fill-opacity="0.28" />
+<rect x="310" y="158" width="29.1" height="16" rx="2" fill="#6A1B9A" />
+<text x="347.1" y="170" class="val">p50=0.03ms / p95=0.03ms | 75.100 tok/s_roof</text>
+<text x="298" y="223" text-anchor="end" class="label">Edge_CPU · PyTorch_CUDA_Backend</text>
+<text x="298" y="239" text-anchor="end" class="sublabel">GEMM_SiLU_512x512 (FP32)</text>
+<rect x="310" y="212" width="82.6" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="216" width="77.0" height="16" rx="2" fill="#5A6577" />
+<text x="400.6" y="228" class="val">p50=0.17ms / p95=0.21ms | 1544.140 GFLOP/s</text>
+<text x="298" y="281" text-anchor="end" class="label">Edge_CPU · HIPIFY_Static_Analyzer</text>
+<text x="298" y="297" text-anchor="end" class="sublabel">CUDA_to_HIP_SAXPY_Port (Source_AST)</text>
+<rect x="310" y="270" width="137.8" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="274" width="137.8" height="16" rx="2" fill="#5A6577" />
+<text x="455.8" y="286" class="val">p50=1.56ms / p95=1.56ms | 12.000 conversions</text>
+<text x="298" y="339" text-anchor="end" class="label">Edge_CPU · Hybrid_Edge_RAG_Router</text>
+<text x="298" y="355" text-anchor="end" class="sublabel">VectorRetrieval_128d_Cosine (FP32)</text>
+<rect x="310" y="328" width="148.4" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="332" width="148.4" height="16" rx="2" fill="#5A6577" />
+<text x="466.4" y="344" class="val">p50=2.30ms / p95=2.30ms | 434.970 queries/s</text>
+<text x="298" y="397" text-anchor="end" class="label">Edge_NPU · VitisAIExecutionProvider</text>
+<text x="298" y="413" text-anchor="end" class="sublabel">test_model.onnx (INT8/AIE2_4x4)</text>
+<rect x="310" y="386" width="159.9" height="24" rx="3" fill="#ED1C24" fill-opacity="0.28" />
+<rect x="310" y="390" width="157.1" height="16" rx="2" fill="#ED1C24" />
+<text x="477.9" y="402" class="val">p50=3.16ms / p95=3.50ms | 311.768 inf/s</text>
+<text x="298" y="455" text-anchor="end" class="label">Edge_iGPU · DmlExecutionProvider</text>
+<text x="298" y="471" text-anchor="end" class="sublabel">test_model.onnx (FP32/DirectML)</text>
+<rect x="310" y="444" width="185.4" height="24" rx="3" fill="#0071C5" fill-opacity="0.28" />
+<rect x="310" y="448" width="182.7" height="16" rx="2" fill="#0071C5" />
+<text x="503.4" y="460" class="val">p50=8.07ms / p95=8.89ms | 124.311 inf/s</text>
+<text x="298" y="513" text-anchor="end" class="label">Edge_CPU · NumPy_QDQ_INT8_Reference</text>
+<text x="298" y="529" text-anchor="end" class="sublabel">QDQ_MatMul_1024x1024 (INT8_QDQ)</text>
+<rect x="310" y="502" width="194.4" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="506" width="182.9" height="16" rx="2" fill="#5A6577" />
+<text x="512.4" y="518" class="val">p50=8.12ms / p95=12.39ms | 121.740 calibrations/s</text>
+<text x="298" y="571" text-anchor="end" class="label">Edge_CPU · Triton_RMSNorm_Reference</text>
+<text x="298" y="587" text-anchor="end" class="sublabel">FusedRMSNorm_1024x4096 (FP32)</text>
+<rect x="310" y="560" width="190.6" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="564" width="185.0" height="16" rx="2" fill="#5A6577" />
+<text x="508.6" y="576" class="val">p50=8.78ms / p95=10.79ms | 3.830 GB/s</text>
+<text x="298" y="629" text-anchor="end" class="label">Edge_CPU · CPUExecutionProvider</text>
+<text x="298" y="645" text-anchor="end" class="sublabel">test_model.onnx (FP32/AVX512)</text>
+<rect x="310" y="618" width="204.7" height="24" rx="3" fill="#5A6577" fill-opacity="0.28" />
+<rect x="310" y="622" width="196.5" height="16" rx="2" fill="#5A6577" />
+<text x="522.7" y="634" class="val">p50=13.35ms / p95=18.05ms | 70.779 inf/s</text>
+<text x="298" y="687" text-anchor="end" class="label">Cloud_MI300X · FP8_E4M3_Scaled_Quantizer</text>
+<text x="298" y="703" text-anchor="end" class="sublabel">Transformer_Outlier_Tensor_262144 (FP8_E4M3)</text>
+<rect x="310" y="676" width="208.9" height="24" rx="3" fill="#6A1B9A" fill-opacity="0.28" />
+<rect x="310" y="680" width="208.9" height="16" rx="2" fill="#6A1B9A" />
+<text x="526.9" y="692" class="val">p50=21.08ms / p95=21.08ms | 2614.900 TFLOPS_peak</text>
+<text x="298" y="745" text-anchor="end" class="label">Cloud_API · OpenAI_Compatible_API</text>
+<text x="298" y="761" text-anchor="end" class="sublabel">Gemma-4-31B-IT (API_Hosted)</text>
+<rect x="310" y="734" width="410.4" height="24" rx="3" fill="#00897B" fill-opacity="0.28" />
+<rect x="310" y="738" width="410.4" height="16" rx="2" fill="#00897B" />
+<text x="728.4" y="750" class="val">p50=33804.43ms / p95=33804.43ms | 2.337 tokens/s</text>
 </svg>

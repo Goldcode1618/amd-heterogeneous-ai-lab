@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  verify-research-and-labs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js 20 (for MCP npx tests)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pytest
+          pip install -r 02_ACADEMY_CURRICULUM/01_beginner_basics/ACAD-B05_B06_pydantic_mcp_agent/requirements.txt
+
+      - name: Run root research pipeline & lab unit tests
+        run: pytest -v tests/
+
+      - name: Run PydanticAI Multi-MCP agent tests
+        working-directory: 02_ACADEMY_CURRICULUM/01_beginner_basics/ACAD-B05_B06_pydantic_mcp_agent
+        run: pytest -v

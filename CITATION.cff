@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "Unified Edge-to-Cloud AI Acceleration on the AMD Ecosystem: Empirical Characterization of XDNA 1 NPU, RDNA 3 iGPU, Token Lab API, and Instinct MI300X"
+message: "If you use this benchmark suite, cryptographic telemetry pipeline, or AMD AI / ROCm engineering labs in your research, please cite this repository."
+type: software
+authors:
+  - family-names: "Wibisono"
+    given-names: "Ahmad Rifa'i"
+    email: "2503025001@uhamka.ac.id"
+    affiliation: "Universitas Muhammadiyah Prof. DR. HAMKA (UHAMKA)"
+repository-code: "https://github.com/Goldcode1618/amd-heterogeneous-ai-lab"
+license: "Apache-2.0"
+keywords:
+  - "AMD Ryzen AI"
+  - "XDNA 1 NPU"
+  - "RDNA 3"
+  - "ROCm"
+  - "Instinct MI300X"
+  - "HIP"
+  - "ONNX Runtime"
+  - "Heterogeneous Computing"
+  - "Model Context Protocol"

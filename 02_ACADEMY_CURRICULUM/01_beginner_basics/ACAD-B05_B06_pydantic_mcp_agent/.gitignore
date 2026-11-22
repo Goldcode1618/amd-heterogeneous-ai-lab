@@ -1,0 +1,16 @@
+# Secrets & Local Environment
+.env
+.env.*
+!.env.example
+
+# Python Virtual Environments & Caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/

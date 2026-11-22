@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pydanticai-multi-mcp-agent"
+version = "0.1.0"
+description = "Standalone AI Agent berbasis PydanticAI dengan orkestrasi Multi-MCP Server (Time, Airbnb, Weather)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic-ai-slim[mcp]==1.66.0",
+    "openai>=1.0.0",
+    "mcp-server-time",
+    "mcp-weather-server",
+    "python-dotenv",
+    "httpx",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-v"
