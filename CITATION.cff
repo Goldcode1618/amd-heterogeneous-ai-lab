@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: "Wibisono"
     given-names: "Ahmad Rifa'i"
-    email: "2503025001@uhamka.ac.id"
+    orcid: "https://orcid.org/0009-0001-0120-5791"
     affiliation: "Universitas Muhammadiyah Prof. DR. HAMKA (UHAMKA)"
 repository-code: "https://github.com/Goldcode1618/amd-heterogeneous-ai-lab"
 license: "Apache-2.0"

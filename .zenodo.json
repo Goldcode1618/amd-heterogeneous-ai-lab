@@ -1,0 +1,31 @@
+{
+  "title": "Unified Edge-to-Cloud AI Acceleration on the AMD Ecosystem: Empirical Characterization of XDNA 1 NPU, RDNA 3 iGPU, Token Lab API, and Instinct MI300X",
+  "description": "Reproducible, cryptographically audited research and engineering repository spanning the AMD AI hardware and software ecosystem, from local XDNA 1 NPU (Ryzen AI 1.9.0) and RDNA 3 iGPU (DirectML) on AMD Ryzen 5 8600G to AMD Token Lab hosted inference and AMD Instinct MI300X (192 GB HBM3, ROCm / HIP) datacenter compute.",
+  "upload_type": "software",
+  "license": "Apache-2.0",
+  "creators": [
+    {
+      "name": "Wibisono, Ahmad Rifa'i",
+      "affiliation": "Department of Electrical Engineering, Universitas Muhammadiyah Prof. DR. HAMKA (UHAMKA)",
+      "orcid": "0009-0001-0120-5791"
+    }
+  ],
+  "keywords": [
+    "AMD Ryzen AI",
+    "XDNA 1 NPU",
+    "RDNA 3",
+    "ROCm",
+    "Instinct MI300X",
+    "HIP",
+    "ONNX Runtime",
+    "Heterogeneous Computing",
+    "Model Context Protocol"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Goldcode1618/amd-heterogeneous-ai-lab",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
