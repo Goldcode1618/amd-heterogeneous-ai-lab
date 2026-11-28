@@ -141,3 +141,109 @@ def test_roofline_analyzer_regimes() -> None:
     saxpy = mod.analyze_kernel_roofline("SAXPY", 2.0 * 1e6, 12.0 * 1e6)
     assert all(r["regime"] == "Compute Bound" for r in dense_gemm)
     assert all(r["regime"] == "Memory-Bandwidth Bound" for r in saxpy)
+
+
+def test_smoke_test_rocm_shallow_path_resolution(monkeypatch) -> None:
+    """smoke_test_rocm.py must load cleanly at both repo depth and depth-1 container path (/work)."""
+    rel_path = "04_CLOUD_AND_API_LABS/mi300x_dev_cloud/smoke_test_rocm.py"
+    mod = _load_module(rel_path, "smoke_test_rocm_repo")
+    assert mod.WORKSPACE_ROOT == WORKSPACE_ROOT
+    assert mod.record_experiment is not None
+
+    shallow_path = "/work/smoke_test_rocm.py"
+    source = (WORKSPACE_ROOT / rel_path).read_text(encoding="utf-8")
+    code = compile(source, shallow_path, "exec")
+
+    monkeypatch.setattr(Path, "resolve", lambda self, strict=False: Path(shallow_path))
+    ns: dict[str, object] = {"__name__": "smoke_test_rocm_shallow", "__file__": shallow_path}
+    exec(code, ns)
+
+    assert ns["WORKSPACE_ROOT"] == Path("/")
+    assert ns["record_experiment"] is None
+    assert callable(ns["main"])
+
+
+def test_wave2_suite_shallow_path_and_fp8_detection(monkeypatch) -> None:
+    """wave2_mi300x_suite.py must resolve depth-1 /work paths cleanly and prefer MI300X FP8 fnuz."""
+    import types
+
+    rel_path = "04_CLOUD_AND_API_LABS/mi300x_dev_cloud/wave2_mi300x_suite.py"
+    shallow_path = "/work/wave2_mi300x_suite.py"
+    source = (WORKSPACE_ROOT / rel_path).read_text(encoding="utf-8")
+    code = compile(source, shallow_path, "exec")
+
+    monkeypatch.setattr(Path, "resolve", lambda self, strict=False: Path(shallow_path))
+    ns: dict[str, object] = {"__name__": "wave2_suite_shallow", "__file__": shallow_path}
+    exec(code, ns)
+
+    assert ns["DEFAULT_OUT_DIR"] == Path("/work")
+    detect_fn = ns["detect_fp8_dtype"]
+    assert callable(detect_fn)
+
+    both = types.SimpleNamespace(float8_e4m3fnuz="fnuz_dtype", float8_e4m3fn="fn_dtype")
+    assert detect_fn(both) == ("fnuz_dtype", "float8_e4m3fnuz")
+
+    fallback_only = types.SimpleNamespace(float8_e4m3fn="fn_dtype")
+    assert detect_fn(fallback_only) == ("fn_dtype", "float8_e4m3fn")
+
+    none_avail = types.SimpleNamespace()
+    assert detect_fn(none_avail) == (None, "UNAVAILABLE")
+
+
+def test_wave2_suite_fault_isolation_and_incremental_persistence() -> None:
+    """One failing subtest in wave2_mi300x_suite.py must not abort subsequent subtests or JSONL/JSON writes."""
+    import json
+    import tempfile
+
+    mod = _load_module(
+        "04_CLOUD_AND_API_LABS/mi300x_dev_cloud/wave2_mi300x_suite.py",
+        "wave2_mi300x_suite_mod",
+    )
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        tmp_path = Path(tmp_dir)
+        jsonl_path = tmp_path / "wave2_mi300x_suite.jsonl"
+        json_path = tmp_path / "wave2_mi300x_suite.json"
+        metadata = {"device_name": "AMD Instinct MI300X VF"}
+        records: list[dict[str, object]] = []
+
+        def _boom() -> dict[str, object]:
+            raise RuntimeError("simulated OOM")
+
+        def _ok() -> dict[str, object]:
+            return {"tflops": 1234.5, "latency_ms_p50": 0.9}
+
+        err_rec = mod.run_subtest(
+            "gemm_fp32_16384",
+            _boom,
+            jsonl_path=jsonl_path,
+            json_path=json_path,
+            metadata=metadata,
+            records=records,
+        )
+        ok_rec = mod.run_subtest(
+            "gemm_fp8_scaled_mm_8192",
+            _ok,
+            jsonl_path=jsonl_path,
+            json_path=json_path,
+            metadata=metadata,
+            records=records,
+        )
+
+        assert err_rec["status"] == "ERROR"
+        assert "simulated OOM" in str(err_rec["error"])
+        assert ok_rec["status"] == "PASS"
+
+        lines = [
+            json.loads(line)
+            for line in jsonl_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        assert len(lines) == 2
+        assert lines[0]["status"] == "ERROR"
+        assert lines[1]["status"] == "PASS"
+
+        summary = json.loads(json_path.read_text(encoding="utf-8"))
+        assert summary["summary"]["total"] == 2
+        assert summary["summary"]["passed"] == 1
+        assert summary["summary"]["failed"] == 1
+        assert summary["results"][1]["tflops"] == 1234.5

@@ -1,0 +1,4 @@
+{
+  "status": "VLLM_NOT_PREINSTALLED",
+  "note": "Track C elapsed=10m (<38m cutoff, 28m left), skipped heavy vLLM download to protect credit budget."
+}

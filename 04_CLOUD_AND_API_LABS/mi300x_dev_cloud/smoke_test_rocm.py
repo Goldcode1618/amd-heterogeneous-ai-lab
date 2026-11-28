@@ -16,7 +16,10 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
+_resolved_parents = Path(__file__).resolve().parents
+WORKSPACE_ROOT = (
+    _resolved_parents[2] if len(_resolved_parents) > 2 else _resolved_parents[-1]
+)
 if (WORKSPACE_ROOT / "scripts" / "log_experiment.py").is_file():
     if str(WORKSPACE_ROOT) not in sys.path:
         sys.path.insert(0, str(WORKSPACE_ROOT))
@@ -26,7 +29,8 @@ else:
 
 
 def run_smi_check() -> None:
-    """Print concise rocm-smi or amd-smi summary if available."""
+    """Print concise rocm-smi / amd-smi and rocminfo summaries if available."""
+    found_smi = False
     for tool in ("rocm-smi", "amd-smi"):
         exe = shutil.which(tool)
         if exe:
@@ -38,8 +42,22 @@ def run_smi_check() -> None:
             )
             proc = subprocess.run(args, capture_output=True, text=True, check=False)
             print(proc.stdout.strip() or proc.stderr.strip())
-            return
-    print("=== Telemetry ===\nrocm-smi / amd-smi not found in PATH.")
+            found_smi = True
+            break
+    if not found_smi:
+        print("=== Telemetry ===\nrocm-smi / amd-smi not found in PATH.")
+
+    rocminfo_exe = shutil.which("rocminfo")
+    if rocminfo_exe:
+        proc = subprocess.run([rocminfo_exe], capture_output=True, text=True, check=False)
+        agent_lines = [
+            line.strip()
+            for line in proc.stdout.splitlines()
+            if "Name:" in line or "Marketing Name:" in line
+        ][:12]
+        if agent_lines:
+            print("=== ROCm Agents (rocminfo) ===")
+            print("\n".join(agent_lines))
 
 
 def percentile_ms(samples_ms: list[float], pct: float) -> float:

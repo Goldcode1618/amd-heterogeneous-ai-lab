@@ -1,0 +1,2 @@
+{"timestamp_utc": "2026-11-28T02:22:19+00:00", "device_name": "AMD Instinct MI300X VF", "precision": "BFLOAT16", "tflops": 622.409, "latency_ms_p50": 1.772, "latency_ms_p95": 1.844, "vram_mb": 196288.0, "hip_version": "7.14.60850"}
+{"timestamp_utc": "2026-11-28T02:22:19+00:00", "device_name": "AMD Instinct MI300X VF", "precision": "FLOAT16", "tflops": 572.835, "latency_ms_p50": 1.919, "latency_ms_p95": 2.004, "vram_mb": 196288.0, "hip_version": "7.14.60850"}
